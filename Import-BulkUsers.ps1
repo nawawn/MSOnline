@@ -13,7 +13,7 @@ $Number  = 0
 $Failure = 0
 $Success = 0
 
-$IsPathCorrect = (Test-Path -Path $Path)
+$IsPathCorrect = (Test-Path -Path $Path -PathType leaf)
 
 Function Test-CsvHeader{    
     [OutputType([Bool])]
@@ -41,7 +41,7 @@ Function Test-MsolUser{
     $AlreadyExist = Get-MsolUser -UserPrincipalName $UPN -ErrorAction SilentlyContinue
     return ($null -ne $AlreadyExist)
 }
-#Test-MsolUser -UPN tmsoluser@britishmuseum.org
+#Test-MsolUser -UPN tmsoluser@mycompany.com
 
 #region Main()
 
