@@ -15,7 +15,7 @@ $Success = 0
 
 $IsPathCorrect = (Test-Path -Path $Path -PathType leaf)
 
-Function Test-CsvHeader{    
+Function Test-CsvHeader{
     [OutputType([Bool])]
     Param( [String]$Path )        
     
@@ -23,16 +23,22 @@ Function Test-CsvHeader{
     If($HeaderName){
         return (($ReqHeader | Where-Object{$HeaderName -contains $_}).count -ge ($ReqHeader.count))
     }
-    Else { return $false }    
+    Else { return $false }
+<#
+.EXAMPLE
+   Test-CsvHeader -Path $Path   
+#>   
 }
-#Test-CsvHeader -Path $Path
 
 Function Test-UPNFormat{
     [OutputType([Bool])]
     Param( $UPN )
     return ([Bool]($UPN -as [System.Net.Mail.MailAddress]))
+<#
+.EXAMPLE
+   Test-UPNFormat -UPN "mtest@mydomain.com"
+#>
 }
-#Test-UPNFormat -UPN "mtest@mydomain.com"
 
 Function Test-MsolUser{
     [OutputType([Bool])]
@@ -40,8 +46,11 @@ Function Test-MsolUser{
 
     $AlreadyExist = Get-MsolUser -UserPrincipalName $UPN -ErrorAction SilentlyContinue
     return ($null -ne $AlreadyExist)
+<#
+.EXAMPLE
+   Test-MsolUser -UPN tmsoluser@mycompany.com
+#>
 }
-#Test-MsolUser -UPN tmsoluser@mycompany.com
 
 #region Main()
 
