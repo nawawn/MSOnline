@@ -8,7 +8,7 @@ If (!(Test-Path -Path $Path -PathType leaf)){
     return
 }
 
-If(!((Get-PSSession).where{$_.ConfigurationName -eq "Microsoft.Exchange"})){
+If(!((Get-PSSession).where{($_.computername -eq "outlook.office365.com") -and ($_.ConfigurationName -eq "Microsoft.Exchange")})){
     Write-Warning "Please Connect to Exchange Online PowerShell!"
     return
 }
