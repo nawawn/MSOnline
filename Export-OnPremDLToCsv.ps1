@@ -9,12 +9,10 @@ function Resolve-ADCanonicalName{
     Param( 
         [Parameter(Mandatory,ValueFromPipeline,ValueFromPipelineByPropertyName,Position=0)]
         $CanonicalName 
-    )
-    Begin{}
+    )    
     Process{
         return ((Get-ADUser -Filter 'Enabled -eq $true' -Properties CanonicalName).Where{$_.CanonicalName -eq $CanonicalName} | 
-            Select-Object -ExpandProperty Name
-        )
+            Select-Object -ExpandProperty Name )
     }
 }
 
