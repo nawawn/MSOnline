@@ -1,6 +1,7 @@
 ﻿Function Enable-MFAO365{    
     Param(
-        [Parameter(Mandatory,ValueFromPipeline,ValueFromPipelineByPropertyName,Position=0)]
+        [Parameter(ValueFromPipeline,ValueFromPipelineByPropertyName,Position=0)]
+        [ValidateNotNullOrEmpty()]
         [String]$UserPrincipalName
     )
     Begin{
@@ -29,7 +30,8 @@
 
 Function Disable-MFAO365{    
     Param(
-        [Parameter(Mandatory,ValueFromPipeline,ValueFromPipelineByPropertyName,Position=0)]
+        [Parameter(ValueFromPipeline,ValueFromPipelineByPropertyName,Position=0)]
+        [ValidateNotNullOrEmpty()]
         [String]$UserPrincipalName
     )
     Begin{
@@ -57,6 +59,7 @@ Function Disable-MFAO365{
 Function Test-MFAO365{    
     Param(
         [Parameter(ValueFromPipeline,ValueFromPipelineByPropertyName,Position=0)]
+        [ValidateNotNullOrEmpty()]
         [String]$UserPrincipalName,
         [Switch]$Quiet
     )
