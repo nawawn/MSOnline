@@ -53,3 +53,31 @@ Function Disable-MFAO365{
    Get-MsolUser -UserPrincipalName <UserPrincipalName> | Disable-MFAO365
 #>
 }
+
+Function Test-MFAO365{    
+    Param(
+        [Parameter(ValueFromPipeline,ValueFromPipelineByPropertyName,Position=0)]
+        [String]$UserPrincipalName,
+        [Switch]$Quiet
+    )
+    Process{
+        $MFAState = (Get-MsolUser -UserPrincipalName $UserPrincipalName).StrongAuthenticationRequirements        
+        If ($Quiet){
+            ($($MFAState.State) -eq 'Enabled') -or ($($MFAState.State) -eq 'Enforced')
+        }
+        Else{            
+            [PSCustomObject][Ordered]@{
+                UserPrincipalName = $UserPrincipalName
+                MFAStatus         = $($MFAState.State)
+            }
+        }               
+    }
+<#
+.EXAMPLE
+   Test-MFAO365 -UserPrincipalName <UserPrincipalName>
+.EXAMPLE
+   Test-MFAO365 -UserPrincipalName <UserPrincipalName> -Quiet
+.EXAMPLE
+   Get-MsolUser -UserPrincipalName <UserPrincipalName> | Test-MFAO365
+#>
+}
